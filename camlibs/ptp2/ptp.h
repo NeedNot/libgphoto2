@@ -4913,6 +4913,7 @@ uint16_t ptp_olympus_opensession (PTPParams*, unsigned char**, unsigned int *);
 uint16_t ptp_olympus_getcameraid (PTPParams*, unsigned char**, unsigned int *);
 
 uint16_t ptp_olympus_omd_capture (PTPParams* params);
+uint16_t ptp_olympus_omd_half_press (PTPParams* params);
 uint16_t ptp_olympus_omd_move_focus (PTPParams* params, uint32_t direction, uint32_t step_size);
 
 /* Internal function for SONY */
@@ -5147,6 +5148,7 @@ uint16_t ptp_sigma_fp_getpictfileinfo2 (PTPParams* params, SIGMAFP_PictFileInfo2
 uint16_t ptp_olympus_liveview_image (PTPParams* params, unsigned char **data, unsigned int *size);
 #define ptp_olympus_omd_move_focus(params,direction,step_size) ptp_generic_no_data(params,PTP_OC_OLYMPUS_OMD_MFDrive,2,direction,step_size)
 uint16_t ptp_olympus_omd_capture (PTPParams* params);
+uint16_t ptp_olympus_omd_half_press (PTPParams* params);
 uint16_t ptp_olympus_omd_bulbstart (PTPParams* params);
 uint16_t ptp_olympus_omd_bulbend (PTPParams* params);
 uint16_t ptp_olympus_init_pc_mode (PTPParams* params);

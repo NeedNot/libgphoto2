@@ -5995,6 +5995,24 @@ out:
 }
 
 static int
+camera_olympus_omd_half_press(Camera *camera, GPContext *context) 
+{
+	PTPParams		*params = &camera->pl->params;
+	GP_LOG_D ("camera_olympus_omd_half_press");
+	return translate_ptp_result(ptp_olympus_omd_half_press(params));
+}
+
+static int
+camera_half_press (Camera *camera, GPContext *context)
+{
+	PTPParams		*params = &camera->pl->params;
+	if (params->deviceinfo.VendorExtensionID == PTP_VENDOR_GP_OLYMPUS_OMD && ptp_operation_issupported(params, PTP_OC_OLYMPUS_OMD_Capture)) {
+		return camera_olympus_omd_half_press(camera, context);
+	}
+	return GP_ERROR_NOT_SUPPORTED;
+}
+
+static int
 camera_trigger_canon_eos_capture (Camera *camera, GPContext *context)
 {
 	PTPParams		*params = &camera->pl->params;
@@ -9510,6 +9528,7 @@ camera_init (Camera *camera, GPContext *context)
 	camera->functions->exit = camera_exit;
 	camera->functions->trigger_capture = camera_trigger_capture;
 	camera->functions->capture = camera_capture;
+	camera->functions->half_press = camera_half_press;
 	camera->functions->capture_preview = camera_capture_preview;
 	camera->functions->summary = camera_summary;
 	camera->functions->get_config = camera_get_config;

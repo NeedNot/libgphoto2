@@ -929,6 +929,22 @@ ptp_olympus_omd_capture (PTPParams* params)
 	free (data);
 	return PTP_RC_OK;
 }
+
+uint16_t
+ptp_olympus_omd_half_press (PTPParams* params)
+{
+	PTPContainer	ptp;
+	unsigned int	size = 0;
+	unsigned char	*data = NULL;
+
+	PTP_CNT_INIT(ptp, PTP_OC_OLYMPUS_OMD_Capture, 0x1); // start half press
+	CHECK_PTP_RC(ptp_transaction(params, &ptp, PTP_DP_NODATA, 0, NULL, NULL));
+	PTP_CNT_INIT(ptp, PTP_OC_OLYMPUS_OMD_Capture, 0x5); // release half press
+	CHECK_PTP_RC(ptp_transaction(params, &ptp, PTP_DP_NODATA, 0, NULL, NULL));
+	
+	return PTP_RC_OK;
+}
+
 /**
  * ptp_olympus_bulbstart:
  * params:	PTPParams*

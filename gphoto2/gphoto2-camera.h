@@ -242,6 +242,7 @@ typedef int (*CameraCaptureFunc)   (Camera *camera, CameraCaptureType type,
 typedef int (*CameraTriggerCaptureFunc)   (Camera *camera, GPContext *context);
 typedef int (*CameraCapturePreviewFunc) (Camera *camera, CameraFile *file,
 					 GPContext *context);
+typedef int (*CameraHalfPressFunc) (Camera *camera, GPContext *context);
 typedef int (*CameraSummaryFunc)   (Camera *camera, CameraText *text,
 				    GPContext *context);
 typedef int (*CameraManualFunc)    (Camera *camera, CameraText *text,
@@ -300,6 +301,8 @@ typedef struct _CameraFunctions {
 	CameraCaptureFunc        capture;	/**< \brief Remote control the camera to capture */
 	CameraTriggerCaptureFunc trigger_capture;/**< \brief Remote control the camera to trigger capture */
 	CameraCapturePreviewFunc capture_preview;/**< \brief Preview viewfinder content. */
+
+	CameraHalfPressFunc half_press; //todo rename to half shutter
 
 	/* Textual information */
 	CameraSummaryFunc summary;		/**< \brief Give a summary about the current camera status, translated. */
@@ -401,6 +404,7 @@ int gp_camera_get_about		 (Camera *camera, CameraText *about,
 				  GPContext *context);
 int gp_camera_capture 		 (Camera *camera, CameraCaptureType type,
 				  CameraFilePath *path, GPContext *context);
+int gp_camera_half_press	(Camera *camera, GPContext *context);
 int gp_camera_trigger_capture 	 (Camera *camera, GPContext *context);
 int gp_camera_capture_preview 	 (Camera *camera, CameraFile *file,
 				  GPContext *context);

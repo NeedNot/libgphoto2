@@ -1408,6 +1408,30 @@ gp_camera_capture_preview (Camera *camera, CameraFile *file, GPContext *context)
 	return (GP_OK);
 }
 
+/**
+ * Presses the shutter halfway donwn to focus the camera
+ * 
+ * @param camera a #Camera
+ * @param path a #CameraFilePath
+ * @param context a #GPContext
+ * @return a gphoto2 error code
+ **/
+int
+gp_camera_half_press(Camera *camera, GPContext *context) {
+	C_PARAMS(camera);
+	CHECK_INIT(camera, context);
+
+	if (!camera->functions->half_press) {
+				gp_context_error (context, _("This camera can "
+			"not half press"));
+		CAMERA_UNUSED (camera, context);
+		return (GP_ERROR_NOT_SUPPORTED);
+	}
+
+	CHECK_RESULT_OPEN_CLOSE (camera, camera->functions->half_press (camera, context), context);
+	CAMERA_UNUSED (camera, context);
+	return (GP_OK);
+}
 
 /**
  * Wait and retrieve an event from the camera.
