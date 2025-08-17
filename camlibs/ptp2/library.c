@@ -5995,19 +5995,19 @@ out:
 }
 
 static int
-camera_olympus_omd_half_press(Camera *camera, GPContext *context) 
+camera_olympus_omd_half_press(Camera *camera, int interval, GPContext *context) 
 {
 	PTPParams		*params = &camera->pl->params;
 	GP_LOG_D ("camera_olympus_omd_half_press");
-	return translate_ptp_result(ptp_olympus_omd_half_press(params));
+	return translate_ptp_result(ptp_olympus_omd_half_press(params, interval));
 }
 
 static int
-camera_half_press (Camera *camera, GPContext *context)
+camera_half_press (Camera *camera, int interval, GPContext *context)
 {
 	PTPParams		*params = &camera->pl->params;
 	if (params->deviceinfo.VendorExtensionID == PTP_VENDOR_GP_OLYMPUS_OMD && ptp_operation_issupported(params, PTP_OC_OLYMPUS_OMD_Capture)) {
-		return camera_olympus_omd_half_press(camera, context);
+		return camera_olympus_omd_half_press(camera, interval, context);
 	}
 	return GP_ERROR_NOT_SUPPORTED;
 }

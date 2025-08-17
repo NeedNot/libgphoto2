@@ -1417,7 +1417,7 @@ gp_camera_capture_preview (Camera *camera, CameraFile *file, GPContext *context)
  * @return a gphoto2 error code
  **/
 int
-gp_camera_half_press(Camera *camera, GPContext *context) {
+gp_camera_half_press(Camera *camera, int interval, GPContext *context) {
 	C_PARAMS(camera);
 	CHECK_INIT(camera, context);
 
@@ -1428,7 +1428,7 @@ gp_camera_half_press(Camera *camera, GPContext *context) {
 		return (GP_ERROR_NOT_SUPPORTED);
 	}
 
-	CHECK_RESULT_OPEN_CLOSE (camera, camera->functions->half_press (camera, context), context);
+	CHECK_RESULT_OPEN_CLOSE (camera, camera->functions->half_press (camera, interval, context), context);
 	CAMERA_UNUSED (camera, context);
 	return (GP_OK);
 }

@@ -931,14 +931,13 @@ ptp_olympus_omd_capture (PTPParams* params)
 }
 
 uint16_t
-ptp_olympus_omd_half_press (PTPParams* params)
+ptp_olympus_omd_half_press (PTPParams* params, int interval)
 {
 	PTPContainer	ptp;
-	unsigned int	size = 0;
-	unsigned char	*data = NULL;
 
 	PTP_CNT_INIT(ptp, PTP_OC_OLYMPUS_OMD_Capture, 0x1); // start half press
 	CHECK_PTP_RC(ptp_transaction(params, &ptp, PTP_DP_NODATA, 0, NULL, NULL));
+	usleep(interval*1000);
 	PTP_CNT_INIT(ptp, PTP_OC_OLYMPUS_OMD_Capture, 0x5); // release half press
 	CHECK_PTP_RC(ptp_transaction(params, &ptp, PTP_DP_NODATA, 0, NULL, NULL));
 	
